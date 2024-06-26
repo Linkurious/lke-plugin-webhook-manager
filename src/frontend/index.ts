@@ -85,7 +85,7 @@ function addWebhook() {
               //closing the formPopup
               closePopup.call(url.parentElement as HTMLDivElement);
 
-              await helper.showPopin('info', 'Webhook created successfully');
+              void helper.showPopin('info', 'Webhook created successfully');
             },
             async (e) => {
               errorBox.classList.add('show');
