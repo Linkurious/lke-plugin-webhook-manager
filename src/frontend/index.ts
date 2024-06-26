@@ -10,7 +10,9 @@ import {parseLinkuriousAPI} from '../backend/shared';
 import * as helper from './helper';
 
 declare global {
-  var restClient: RestClient;
+  interface Window {
+    restClient: RestClient;
+  }
 }
 
 function closePopup(this: HTMLDivElement) {
@@ -27,7 +29,7 @@ function deleteWebhook(webhookId: number) {
     if (rowToDelete) {
       rowToDelete.remove();
     }
-    //await webhooks();
+
     void helper.showPopin('info', 'Webhook deleted successfully');
   });
 }
@@ -59,8 +61,6 @@ function addWebhook() {
           events: events
         };
 
-        console.log(body);
-
         const errorBox = document.getElementById('errorBox') as HTMLDivElement;
         const errorTitle = document.getElementById('errorTitle') as HTMLHeadingElement;
         const errorMessage = document.getElementById('errorMessage') as HTMLParagraphElement;
@@ -73,12 +73,12 @@ function addWebhook() {
               errorTitle.textContent = '';
               errorMessage.textContent = '';
 
-              //reseting the webhooks table
+              // resetting the webhooks table
               const table = document.querySelector('#webhooksTable tbody')! as HTMLTableElement;
               table.innerHTML = '';
-              await webhooks();
+              await refreshWebhooksTable();
 
-              //reseting tags
+              // resetting tags
               const container = document.getElementById('tagContainer') as HTMLDivElement;
               container.innerHTML = '';
 
@@ -160,7 +160,7 @@ function showConfirmPopup(webhookId: number, blockApp = false) {
   popup.classList.add('show');
 }
 
-async function showFullpagePopup(blockApp = false) {
+function showFullpagePopup(blockApp = false) {
   const popup = document.getElementById('createView') as HTMLDivElement;
   const close = popup.querySelector('.close') as HTMLAnchorElement;
 
@@ -175,7 +175,7 @@ async function showFullpagePopup(blockApp = false) {
   popup.classList.add('show');
 }
 
-async function datasources() {
+async function loadDatasourceList() {
   const datasources = await parseLinkuriousAPI(window.restClient.dataSource.getDataSources());
   const datasourceSelect = document.getElementById('datasourceSelect') as HTMLSelectElement;
   for (const datasource of datasources) {
@@ -192,14 +192,15 @@ async function datasources() {
 }
 
 // Webhooks Table
-async function webhooks() {
-  try {
+async function refreshWebhooksTable() {
+  await helper.runLongTask(null, async (updater) => {
+    updater.update('Reload webhooks...');
     const webhooksList = await parseLinkuriousAPI(
       window.restClient.webhook.getWebhooks(),
       (body) => body.items
     );
 
-    const table = document.querySelector('#webhooksTable tbody')! as HTMLTableElement;
+    const table = document.querySelector('#webhooksTable tbody') as HTMLTableElement;
     const tbody = document.createElement('tbody');
 
     for (const webhook of webhooksList) {
@@ -211,7 +212,7 @@ async function webhooks() {
       id.textContent = webhook.id.toString();
       tr.append(id);
 
-      //url
+      // url
       const url = document.createElement('td');
       url.textContent = webhook.url;
       tr.append(url);
@@ -243,7 +244,7 @@ async function webhooks() {
         'click',
         () =>
           void parseLinkuriousAPI(
-            restClient.webhook.pingWebhook({webhookId: webhook.id}),
+            window.restClient.webhook.pingWebhook({webhookId: webhook.id}),
             () => helper.showPopin('info', 'Ping sent successfully'),
             (e) => helper.showPopin('error', e.body.message)
           )
@@ -270,9 +271,7 @@ async function webhooks() {
     }
 
     table.replaceWith(tbody);
-  } catch (error) {
-    await helper.showPopin('error', error instanceof Error ? error.message : JSON.stringify(error));
-  }
+  });
 }
 
 async function init() {
@@ -286,8 +285,8 @@ async function init() {
       .forEach((p) => (<HTMLAnchorElement>p).addEventListener('click', closePopup));
     document.getElementById('addEvent')?.addEventListener('click', addEvent);
     document.getElementById('addWebhook')?.addEventListener('click', addWebhook);
-    await webhooks();
-    await datasources();
+    await refreshWebhooksTable();
+    await loadDatasourceList();
   });
 }
 

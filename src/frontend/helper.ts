@@ -97,7 +97,7 @@ export interface RunLongTaskOptions {
 
 export async function runLongTask<T>(
   init: T,
-  cb: (updater: IWaitingMessage<T>) => unknown | Promise<unknown>,
+  cb: (updater: IWaitingMessage<T>) => unknown,
   options: RunLongTaskOptions = {}
 ) {
   const updater = startWaiting(options.hideApp ?? false, init);

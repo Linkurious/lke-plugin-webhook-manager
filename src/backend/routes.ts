@@ -5,7 +5,7 @@ import {PluginRouteOptions} from '@linkurious/rest-client';
 import {PluginConfig} from '../@types/plugin';
 
 import {loggerFormatter, parseLinkuriousAPI} from './shared';
-import {UnauthorizedPluginError} from './exceptions';
+import {PluginError, UnauthorizedPluginError} from './exceptions';
 
 export = async function configureRoutes(
   options: PluginRouteOptions<PluginConfig> & {serverRootFolder?: string}
@@ -27,26 +27,15 @@ export = async function configureRoutes(
   ): express.RequestHandler {
     return (req, res, next) => {
       Promise.resolve(promiseFunction(req, res, next)).catch((e) => {
-        res.status(e.status || 500).json({status: 'error', message: e.message});
+        if (e instanceof PluginError) {
+          res.status(e.getHttpResponseCode()).json({error: e.name, message: e.message});
+        } else if (e instanceof Error) {
+          res.status(500).json({error: e.name, message: e.message});
+        } else {
+          res.status(500).json(JSON.stringify(e));
+        }
       });
     };
-  }
-
-  const CUSTOM_RESPONSE = Symbol('customResponse');
-
-  function handleRequest(
-    fun: (req: Request, res: Response, next: NextFunction) => unknown | Promise<unknown>
-  ): express.RequestHandler {
-    return respond(async (req, res, next) => {
-      const resp = await Promise.resolve(fun(req, res, next));
-      if (resp === CUSTOM_RESPONSE) {
-        /* The function handled the response itself */
-      } else if (resp === null || resp === undefined) {
-        res.sendStatus(204);
-      } else {
-        res.status(200).json(resp);
-      }
-    });
   }
 
   options.router.use(
@@ -69,7 +58,9 @@ export = async function configureRoutes(
    */
   options.router.get(
     '/authorize',
-    // It does anything because the whole logis in a middleware
-    handleRequest(() => null)
+    // It does anything because the whole logic is in a middleware
+    respond((req, res) => {
+      res.sendStatus(204);
+    })
   );
 };
