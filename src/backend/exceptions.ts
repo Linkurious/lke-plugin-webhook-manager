@@ -17,7 +17,7 @@ export class PluginError extends Error {
   }
 
   constructor(message?: string) {
-    super(message || 'An unknown issue happend on the system, contact the system administrator.');
+    super(message || 'An unknown issue happened on the system, contact the system administrator.');
     this.httpResponseCode = 500;
     this.name = ErrorType.UNHANDLED;
   }
