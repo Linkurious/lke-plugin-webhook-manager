@@ -5,7 +5,7 @@ export type GenericType = {
 export const enum ErrorType {
   UNHANDLED = 'Unhandled Error',
   GENERIC = 'Generic Error',
-  UNAUTHORIZED = 'Unauthorized',
+  UNAUTHORIZED = 'Unauthorized'
 }
 
 export class PluginError extends Error {

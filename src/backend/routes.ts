@@ -7,7 +7,6 @@ import {PluginConfig} from '../@types/plugin';
 import {loggerFormatter, parseLinkuriousAPI} from './shared';
 import {UnauthorizedPluginError} from './exceptions';
 
-
 export = async function configureRoutes(
   options: PluginRouteOptions<PluginConfig> & {serverRootFolder?: string}
 ): Promise<void> {
@@ -28,11 +27,7 @@ export = async function configureRoutes(
   ): express.RequestHandler {
     return (req, res, next) => {
       Promise.resolve(promiseFunction(req, res, next)).catch((e) => {
-
-
-        res
-          .status(e.status || 500)
-          .json({status: 'error' , message: e.message,});
+        res.status(e.status || 500).json({status: 'error', message: e.message});
       });
     };
   }
@@ -77,5 +72,4 @@ export = async function configureRoutes(
     // It does anything because the whole logis in a middleware
     handleRequest(() => null)
   );
-
 };

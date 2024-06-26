@@ -41,40 +41,11 @@
     </table>
   </div>
 
-  <div id="spinner">
-    <img src="assets/spinner.gif" width="50" height="50" />
-  </div>
-
-  <div id="popup" class="popupContainer">
-    <div class="popup">
-      <img src="assets/close-button.svg" class="close" />
+  <div id="createView" class="popin">
+    <div class="popinContent fullpage">
+      <a class="close"><img src="assets/close-button.svg" /></a>
       <div class="messageDisplay">
-        <h2 class="popupTitle">Title</h2>
-        <p class="popupMessage"></p>
-      </div>
-    </div>
-  </div>
-
-  <div id="confirmPopup" class="popupContainer">
-    <div class="popup">
-      <div class="messageDisplay">
-        <h2 class="popupTitle">Confirmation</h2>
-        <p class="popupMessage">
-          Are you sure you want to delete this webhook? The operation cannot be undone.
-        </p>
-        <div class="confirmButtons">
-          <button class="button cancelButton hasNext">CANCEL</button>
-          <button class="button red confirmButton">DELETE</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="createView" class="popupContainer">
-    <div class="popup fullpage">
-      <img src="assets/close-button.svg" class="close" />
-      <div class="messageDisplay">
-        <h2 class="popupTitle">Create a Webhook</h2>
+        <h2 class="popinTitle">Create a Webhook</h2>
         <div class="form">
           <form id="addWebhookForm" class="hasNext">
             <label for="targetUrl">Target URL:</label>
@@ -97,8 +68,8 @@
                   <option value="" disabled selected>Select a Datasource</option>
                   <option value="*">Any (*)</option>
                 </select>
-                <button class="button small" type="button" id="addEvent">Add Event</button>
-              </div>
+                <button class="button small" type="button" id="addEvent">Add Event</button></div>
+            </div>
           </form>
         </div>
         <button class="button" type="button" id="addWebhook">CREATE</button>
@@ -106,10 +77,45 @@
       <div class="errorBox" id="errorBox">
         <p class="errorTitle" id="errorTitle"></p>
         <p class="errorMessage" id="errorMessage"></p>
-        </div>
+      </div>
     </div>
   </div>
+
+  <div id="confirmPopin" class="popin">
+    <div class="popinContent">
+      <div class="messageDisplay">
+        <h2 class="popinTitle">Confirmation</h2>
+        <div class="popinMessage">
+          Are you sure you want to delete this webhook? The operation cannot be undone.
+        </div>
+        <div class="confirmButtons">
+          <button class="button cancelButton hasNext">CANCEL</button>
+          <button class="button red confirmButton">DELETE</button>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!--------------------Spinner-------------------->
+  <div id="spinner" class="spinner hider show">
+    <div class="spinnerContent">
+      <div class="loader"></div>
+      <div class="messageDisplay"></div>
+    </div>
+  </div>
+
+  <!---------------------Popin--------------------->
+  <div id="popin" class="popin">
+    <div class="popinContent">
+      <a class="close"><img src="assets/close-button.svg" /></a>
+      <div class="messageDisplay">
+        <h2 class="popinTitle">Title</h2>
+        <div class="popinMessage"></div>
+      </div>
+    </div>
+  </div>
+
+  <!--------------------Scripts-------------------->
   <script src="bundles/index.js""></script>
 </body>
 

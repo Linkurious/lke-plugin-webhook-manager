@@ -1,3 +1,5 @@
+@import url(helpers.css);
+
 h1 {
   color: black;
 }
@@ -175,6 +177,7 @@ input {
 .button.red:focus {
   background-color: #940506;
 }
+
 .addButton {
   background-image: url(assets/add-icon.svg);
   background-size: contain;
@@ -229,33 +232,7 @@ input {
   opacity: 1;
 }
 
-.popupContainer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 0.5s;
-}
-
-.popupContainer {
-  visibility: hidden;
-  opacity: 0;
-}
-
-.popupContainer.show {
-  visibility: visible;
-  opacity: 1;
-}
-
-.popupContainer.hider {
-  background: rgb(180, 180, 180);
-  transition: none;
-}
-
-.popup {
+.popinContent {
   margin: auto;
   margin-top: 200px;
   width: 600px;
@@ -265,8 +242,9 @@ input {
   color: black;
 }
 
-.popup.fullpage {
+.popinContent.fullpage {
   margin-top: 100px;
+  padding-bottom: 25px;
 }
 
 .tooltip {
@@ -291,7 +269,7 @@ input {
   overflow: hidden;
 }
 
-img.close{
+img.close {
   float: right;
   filter: invert(50%);
   transition: filter 200ms;
@@ -304,38 +282,9 @@ img.close:hover {
   cursor: pointer;
 }
 
-/* .close {
-  float: right;
-  transition: color 200ms;
-  font-size: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  color: rgb(120, 120, 120);
-}
-
-.close:hover {
-  color: black;
-  cursor: pointer;
-} */
-
-.popup .messageDisplay {
+.popinContent .messageDisplay {
   padding-left: 20px;
   padding-right: 20px;
-}
-
-input[type="radio"] {
-  vertical-align: text-top;
-  margin-right: 10px;
-  height: 16px;
-  width: 16px;
-}
-
-input[type='file'] {
-  margin-left: 10px;
-}
-
-input::file-selector-button {
-  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .confirmButtons {
@@ -416,16 +365,14 @@ form button[type="submit"]:focus {
   background-color: #0e52bc;
 }
 
-.errorBox{
+.errorBox {
   background-color: #f8d7da;
   border-color: #f5c6cb;
   color: #721c24;
   padding: 8px 12px;
   border-radius: 4px;
-  margin-bottom: 10px;
-  margin-top: 15px;
+  margin: 20px 15px 20px 10px;
   display: none;
-
 }
 
 .errorBox.show {
@@ -474,7 +421,7 @@ form select:focus {
   gap: 5px;
 }
 
-.tagContainer{
+.tagContainer {
   margin-bottom: 10px;
 }
 
@@ -499,6 +446,16 @@ form select:focus {
   filter: invert(100%);
 }
 
-/* .tag .tagClose::before {
-  content: "ⓧ";
-} */
+
+a.close img {
+  float: right;
+  filter: invert(50%);
+  transition: filter 200ms;
+  height: 30px;
+  width: 30px;
+}
+
+a.close img:hover {
+  filter: invert(0%);
+  cursor: pointer;
+}
