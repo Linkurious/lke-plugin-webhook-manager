@@ -79,6 +79,10 @@
 .popin .popinContent .close {
   float: right;
   display: flex;
+  color: rgb(120, 120, 120);
+  cursor: pointer;
+  filter: invert(50%);
+  transition: filter 200ms, color 200ms;
 }
 
 .popin .popinContent .close::after {
@@ -88,13 +92,9 @@
   background-image: var(--img-close-x);
   background-repeat: no-repeat;
   background-position: center center;
-  color: rgb(120, 120, 120);
-  cursor: pointer;
-  filter: invert(50%);
-  transition: filter 200ms, color 200ms;
 }
 
-.popin .popinContent .close::after:hover {
+.popin .popinContent .close:hover {
   filter: invert(0%);
 }
 
