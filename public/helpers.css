@@ -1,3 +1,7 @@
+:root {
+  --img-close-x: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeD0iMHB4IiB5PSIwcHgiPgogIDx0aXRsZT5BcnRib2FyZCA4PC90aXRsZT4KICA8Zz4KICAgIDxwYXRoIGQ9Ik0xOS43OCw0LjIyYTExLDExLDAsMSwwLDAsMTUuNTZBMTEsMTEsMCwwLDAsMTkuNzgsNC4yMlpNMTguMzYsMTguMzZhOSw5LDAsMSwxLDAtMTIuNzJBOSw5LDAsMCwxLDE4LjM2LDE4LjM2WiIvPgogICAgPHBhdGggZD0iTTE3LDcuMDVhMSwxLDAsMCwwLTEuNDEsMEwxMiwxMC41OSw4LjQ2LDcuMDVBMSwxLDAsMCwwLDcuMDUsOC40NkwxMC41OSwxMiw3LjA1LDE1LjU0YTEsMSwwLDAsMCwwLDEuNDEsMSwxLDAsMCwwLC43MS4yOSwxLDEsMCwwLDAsLjctLjI5TDEyLDEzLjQxLDE1LjU0LDE3YTEsMSwwLDAsMCwuNy4yOUExLDEsMCwwLDAsMTcsMTdhMSwxLDAsMCwwLDAtMS40MUwxMy40MSwxMiwxNyw4LjQ2QTEsMSwwLDAsMCwxNyw3LjA1WiIvPgogIDwvZz4KPC9zdmc+');
+}
+
 .none {
   display: none !important;
 }
@@ -72,26 +76,26 @@
   color: black;
 }
 
-.popin .popinContent .close::after {
-  content: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeD0iMHB4IiB5PSIwcHgiPgogIDx0aXRsZT5BcnRib2FyZCA4PC90aXRsZT4KICA8Zz4KICAgIDxwYXRoIGQ9Ik0xOS43OCw0LjIyYTExLDExLDAsMSwwLDAsMTUuNTZBMTEsMTEsMCwwLDAsMTkuNzgsNC4yMlpNMTguMzYsMTguMzZhOSw5LDAsMSwxLDAtMTIuNzJBOSw5LDAsMCwxLDE4LjM2LDE4LjM2WiIvPgogICAgPHBhdGggZD0iTTE3LDcuMDVhMSwxLDAsMCwwLTEuNDEsMEwxMiwxMC41OSw4LjQ2LDcuMDVBMSwxLDAsMCwwLDcuMDUsOC40NkwxMC41OSwxMiw3LjA1LDE1LjU0YTEsMSwwLDAsMCwwLDEuNDEsMSwxLDAsMCwwLC43MS4yOSwxLDEsMCwwLDAsLjctLjI5TDEyLDEzLjQxLDE1LjU0LDE3YTEsMSwwLDAsMCwuNy4yOUExLDEsMCwwLDAsMTcsMTdhMSwxLDAsMCwwLDAtMS40MUwxMy40MSwxMiwxNyw4LjQ2QTEsMSwwLDAsMCwxNyw3LjA1WiIvPgogIDwvZz4KPC9zdmc+');
-}
-
 .popin .popinContent .close {
   float: right;
-  transition: color 200ms;
-  font-size: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  color: rgb(120, 120, 120);
-  filter: invert(50%);
-  transition: filter 200ms;
-  height: 30px;
-  width: 30px;
+  display: flex;
 }
 
-.popin .popinContent .close:hover {
-  filter: invert(0%);
+.popin .popinContent .close::after {
+  content: " ";
+  width: 30px;
+  height: 30px;
+  background-image: var(--img-close-x);
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: rgb(120, 120, 120);
   cursor: pointer;
+  filter: invert(50%);
+  transition: filter 200ms, color 200ms;
+}
+
+.popin .popinContent .close::after:hover {
+  filter: invert(0%);
 }
 
 .popin .popinContent .messageDisplay {

@@ -121,9 +121,7 @@ function addEvent() {
     const tagText = document.createElement('div');
     tagText.classList.add('tagText');
 
-    const tagClose = document.createElement('img');
-    tagClose.src = 'assets/close-button.svg';
-
+    const tagClose = document.createElement('a');
     tagClose.classList.add('tagClose');
 
     tag.appendChild(tagText);

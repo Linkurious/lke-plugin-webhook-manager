@@ -26,22 +26,6 @@ p.description {
   min-width: 900px;
 }
 
-#hiding-menu {
-  width: 100%;
-  margin: auto;
-  padding: 0px 20px 0px 20px;
-  background-color: rgb(240, 240, 240);
-  max-height: 0px;
-  overflow: auto;
-  margin-bottom: 20px;
-  border-radius: 1em;
-  transition: max-height 1s ease-in-out;
-}
-
-#hiding-menu.show {
-  max-height: 500px;
-}
-
 a {
   color: black;
 }
@@ -377,11 +361,19 @@ form select:focus {
 }
 
 .tag .tagClose {
-  display: inline-block;
+  display: flex;
   margin-left: 5px;
-  cursor: pointer;
-  height: 16px;
   margin-top: auto;
   margin-bottom: auto;
+}
+
+.tag .tagClose::after {
+  content: " ";
+  width: 16px;
+  height: 16px;
+  background-image: var(--img-close-x);
+  background-repeat: no-repeat;
+  background-position: center center;
+  cursor: pointer;
   filter: invert(100%);
 }
