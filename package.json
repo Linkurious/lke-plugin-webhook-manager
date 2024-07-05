@@ -1,6 +1,6 @@
 {
   "name": "@linkurious/lke-plugin-webhook-manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Webhook Manager for Linkurious Enterprise",
   "homepage": "https://github.com/Linkurious/lke-plugin-webhook-manager#readme",
   "bugs": {
