@@ -46,7 +46,7 @@
     "LICENSE"
   ],
   "dependencies": {
-    "express": "4.17.3"
+    "express": "4.20.0"
   },
   "devDependencies": {
     "@linkurious/rest-client": "4.1.0",
