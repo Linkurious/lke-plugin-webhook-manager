@@ -28,6 +28,7 @@ module.exports = {
     '@typescript-eslint/restrict-plus-operands': ['off'], // Allows plus operator to be used between different types
     '@typescript-eslint/require-await': ['off'], // Allows async without await
     'import/no-unresolved': ['off'], // Disable non working rule
+    'import/named': ['off'],
     'import/order': ['error', { 'newlines-between': 'always' }], // Orders imports by ['builtin', 'external', 'parent', 'sibling', 'index']
 
     // Server specific
