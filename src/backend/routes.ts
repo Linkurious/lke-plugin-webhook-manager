@@ -1,15 +1,11 @@
 import express = require('express');
-import {NextFunction, Request, Response} from 'express';
-import {PluginRouteOptions} from '@linkurious/rest-client';
 
-import {PluginConfig} from '../@types/plugin';
+import {PluginRouteOptions} from '../@types/plugin';
 
 import {loggerFormatter, parseLinkuriousAPI} from './shared';
 import {PluginError, UnauthorizedPluginError} from './exceptions';
 
-export = async function configureRoutes(
-  options: PluginRouteOptions<PluginConfig> & {serverRootFolder?: string}
-): Promise<void> {
+export = function configureRoutes(options: PluginRouteOptions): void {
   console.log = loggerFormatter(console.log);
   console.warn = loggerFormatter(console.warn);
   console.info = loggerFormatter(console.info);
@@ -17,26 +13,6 @@ export = async function configureRoutes(
   console.debug = loggerFormatter(console.debug);
 
   options.router.use(express.json());
-
-  function respond(
-    promiseFunction: (
-      req: express.Request,
-      res: express.Response,
-      next: express.NextFunction
-    ) => Promise<void> | void
-  ): express.RequestHandler {
-    return (req, res, next) => {
-      Promise.resolve(promiseFunction(req, res, next)).catch((e) => {
-        if (e instanceof PluginError) {
-          res.status(e.getHttpResponseCode()).json({error: e.name, message: e.message});
-        } else if (e instanceof Error) {
-          res.status(500).json({error: e.name, message: e.message});
-        } else {
-          res.status(500).json(JSON.stringify(e));
-        }
-      });
-    };
-  }
 
   options.router.use(
     respond(async (req, res, next) => {
@@ -63,4 +39,34 @@ export = async function configureRoutes(
       res.sendStatus(204);
     })
   );
+
+  options.parentProcess?.postMetadata({
+    actions: [
+      {
+        name: 'Manage webhooks',
+        urlTemplate: `/`,
+        access: 'admin'
+      }
+    ]
+  });
 };
+
+function respond(
+  promiseFunction: (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => Promise<void> | void
+): express.RequestHandler {
+  return (req, res, next) => {
+    Promise.resolve(promiseFunction(req, res, next)).catch((e) => {
+      if (e instanceof PluginError) {
+        res.status(e.getHttpResponseCode()).json({error: e.name, message: e.message});
+      } else if (e instanceof Error) {
+        res.status(500).json({error: e.name, message: e.message});
+      } else {
+        res.status(500).json(JSON.stringify(e));
+      }
+    });
+  };
+}
