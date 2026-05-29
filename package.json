@@ -42,7 +42,7 @@
   "files": [
     "backend",
     "public",
-    "manifest.json",
+    "manifest*.json",
     "LICENSE"
   ],
   "dependencies": {
