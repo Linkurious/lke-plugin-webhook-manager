@@ -1,4 +1,5 @@
-import express = require('express');
+import bodyParser from 'body-parser';
+import type {NextFunction, Request, RequestHandler, Response} from 'express';
 
 import {PluginRouteOptions} from '../@types/plugin';
 
@@ -12,10 +13,10 @@ export = function configureRoutes(options: PluginRouteOptions): void {
   console.error = loggerFormatter(console.error);
   console.debug = loggerFormatter(console.debug);
 
-  options.router.use(express.json());
+  options.router.use(bodyParser.json());
 
   options.router.use(
-    respond(async (req, res, next) => {
+    respond(async (req: Request, _res: Response, next) => {
       const restClient = options.getRestClient(req);
       /*
        * Check Securities or other custom code which should be executed for every call
@@ -35,7 +36,7 @@ export = function configureRoutes(options: PluginRouteOptions): void {
   options.router.get(
     '/authorize',
     // It does anything because the whole logic is in a middleware
-    respond((req, res) => {
+    respond((_req: Request, res: Response) => {
       res.sendStatus(204);
     })
   );
@@ -52,12 +53,8 @@ export = function configureRoutes(options: PluginRouteOptions): void {
 };
 
 function respond(
-  promiseFunction: (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) => Promise<void> | void
-): express.RequestHandler {
+  promiseFunction: (req: Request, res: Response, next: NextFunction) => Promise<void> | void
+): RequestHandler {
   return (req, res, next) => {
     Promise.resolve(promiseFunction(req, res, next)).catch((e) => {
       if (e instanceof PluginError) {
