@@ -12,6 +12,14 @@
     "ja": {
       "title": "Webhook マネージャー",
       "description": "Linkurious EnterpriseでWebhookの追加、削除、テストを行います。"
+    },
+    "it": {
+      "title": "Gestore di webhook",
+      "description": "Aggiungi, elimina e testa webhook in Linkurious Enterprise."
+    },
+    "es": {
+      "title": "Gestor de webhooks",
+      "description": "Agrega, elimina y prueba webhooks en Linkurious Enterprise."
     }
   }
 }
