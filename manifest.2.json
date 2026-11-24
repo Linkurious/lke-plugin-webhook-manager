@@ -20,6 +20,14 @@
     "es": {
       "title": "Gestor de webhooks",
       "description": "Agrega, elimina y prueba webhooks en Linkurious Enterprise."
+    },
+    "ar": {
+      "title": "مدير Webhooks",
+      "description": "إضافة Webhooks وحذفها واختبارها في Linkurious Enterprise."
+    },
+    "de": {
+      "title": "Webhook-Manager",
+      "description": "Webhooks in Linkurious Enterprise hinzufügen, löschen und testen."
     }
   }
 }
