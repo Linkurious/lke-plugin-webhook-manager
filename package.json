@@ -52,7 +52,7 @@
     "@linkurious/rest-client": "4.3.13",
     "@types/express": "5.0.6",
     "@types/node": "26.6.6",
-    "@typescript-eslint/eslint-plugin": "7.14.1",
+    "@typescript-eslint/eslint-plugin": "7.18.0",
     "acorn": "8.8.1",
     "esbuild": "0.28.1",
     "eslint": "8.56.0",
