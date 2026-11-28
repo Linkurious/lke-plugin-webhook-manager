@@ -46,7 +46,7 @@
     "LICENSE"
   ],
   "dependencies": {
-    "body-parser": "2.3.0"
+    "body-parser": "2.4.0"
   },
   "devDependencies": {
     "@linkurious/rest-client": "4.3.13",
